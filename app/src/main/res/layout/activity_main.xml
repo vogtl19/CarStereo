@@ -41,7 +41,8 @@
             android:height="80dp"
             android:background="#ff66CDAA"
             android:textStyle="italic"
-            android:textColor="#0000FF" />
+            android:textColor="#0000FF"
+            android:typeface="monospace" />
 
         <TableRow
             android:layout_width="match_parent"
