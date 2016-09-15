@@ -21,11 +21,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView display;
     //Fourth modification
     private Switch amFmButton;
+    private TextView volLevelDisplay;
     private boolean isOn = false;
     private boolean amFmOn = false;
     private int fmTrack;
     private double fmValue;
     private int amTrack;
+    private int volLevel;
 
     private Button preset1;
     private Button preset2;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         powerButton.setOnClickListener(this);
 
         volumeBar = (SeekBar)findViewById(R.id.volumeBar);
+        volumeBar.setOnSeekBarChangeListener(this);
         tunerBar = (SeekBar)findViewById(R.id.tunerBar);
         tunerBar.setOnSeekBarChangeListener(this);
 
@@ -70,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         preset3.setOnLongClickListener(this);
         preset4.setOnLongClickListener(this);
         preset5.setOnLongClickListener(this);
+
+        volLevelDisplay = (TextView)findViewById(R.id.textView4);
 
 
     }
@@ -163,14 +168,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        if(amFmOn){
-            amTrack = i + 530;
-            display.setText("AM Station: " + amTrack);
+        if(seekBar.getId() == R.id.tunerBar) {
+            if (amFmOn) {
+                amTrack = i + 530;
+                display.setText("AM Station: " + amTrack);
+            } else {
+                fmTrack = i + 881;
+                fmValue = fmTrack / 10.0;
+                display.setText("FM Station: " + fmValue);
+            }
         }
-        else {
-            fmTrack = i + 881;
-            fmValue = fmTrack / 10.0;
-            display.setText("FM Station: " + fmValue);
+        if(seekBar.getId() == R.id.volumeBar)
+        {
+            volLevel = i;
+            volLevelDisplay.setText("Level: "+volLevel);
         }
     }
 
