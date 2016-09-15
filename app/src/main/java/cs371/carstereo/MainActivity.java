@@ -10,7 +10,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener, View.OnLongClickListener{
 
     private Button powerButton;
     //First modification
@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button preset3;
     private Button preset4;
     private Button preset5;
+
+
 
     int[] amStations = {550, 600, 650, 700, 750};
     double[] fmStations = {90.9, 92.9, 94.9, 96.9, 98.9};
@@ -63,8 +65,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         preset5 = (Button)findViewById(R.id.button5);
         preset5.setOnClickListener(this);
 
-
-
+        preset1.setOnLongClickListener(this);
+        preset2.setOnLongClickListener(this);
+        preset3.setOnLongClickListener(this);
+        preset4.setOnLongClickListener(this);
+        preset5.setOnLongClickListener(this);
 
 
     }
@@ -76,15 +81,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 volumeBar.setEnabled(true);
                 tunerBar.setEnabled(true);
                 display.setEnabled(true);
+                display.setText("Display");
                 amFmButton.setEnabled(true);
                 isOn = true;
+                preset1.setEnabled(true);
+                preset2.setEnabled(true);
+                preset3.setEnabled(true);
+                preset4.setEnabled(true);
+                preset5.setEnabled(true);
             }
             else{
                 volumeBar.setEnabled(false);
                 tunerBar.setEnabled(false);
+                display.setText("");
                 display.setEnabled(false);
                 amFmButton.setEnabled(false);
                 isOn = false;
+                preset1.setEnabled(false);
+                preset2.setEnabled(false);
+                preset3.setEnabled(false);
+                preset4.setEnabled(false);
+                preset5.setEnabled(false);
+
             }
         }
 
@@ -183,5 +201,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             amFmOn = false;
         }
 
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if(v.getId() == R.id.button){
+            if(amFmOn){
+                amStations[0] = amTrack;
+                display.setText("AM Station: " +amTrack + "*");
+            }
+            else{
+                fmStations[0] = fmValue;
+                display.setText("FM Station: " + fmValue + "*");
+            }
+        }
+        if(v.getId() == R.id.button2){
+            if(amFmOn){
+                amStations[1] = amTrack;
+                display.setText("AM Station: " +amTrack + "*");
+            }
+            else{
+                fmStations[1] = fmValue;
+                display.setText("FM Station: " + fmValue + "*");
+            }
+        }
+        if(v.getId() == R.id.button3){
+            if(amFmOn){
+                amStations[2] = amTrack;
+                display.setText("AM Station: " +amTrack + "*");
+            }
+            else{
+                fmStations[2] = fmValue;
+                display.setText("FM Station" + fmValue + "*");
+            }
+        }
+        if(v.getId() == R.id.button4){
+            if(amFmOn){
+                amStations[3] = amTrack;
+                display.setText("AM Station: " +amTrack + "*");
+            }
+            else{
+                fmStations[3] = fmValue;
+                display.setText("FM Station: " + fmValue + "*");
+            }
+        }
+        if(v.getId() == R.id.button5){
+            if(amFmOn){
+                amStations[4] = amTrack;
+                display.setText("AM Station: " +amTrack + "*");
+            }
+            else{
+                fmStations[4] = fmValue;
+                display.setText("FM Station: " + fmValue + "*");
+            }
+        }
+        return false;
     }
 }
